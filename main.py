@@ -21,8 +21,8 @@ bvids_bilibili_pro ="BV1UxmaYwECv,BV11sDUYmEpX,BV1hDDWY9Emh,BV1CpSBYLEZ3,BV19iSo
 
 def strtolist(str):
     if str:
-        new_bvids = str.split(",")
-        return new_bvids
+        bvids = str.split(",")
+        return bvids
     
 def print_log(msg):
     # 直接print()在Docker中不会显示, 所以要家flush=True
@@ -77,7 +77,7 @@ def goPlay(url,str,n):
     #count < 30
     while count < n:
         try:
-            reqdatas = buidData(strtolist(str))
+            reqdatas = buildData(strtolist(str))
             random.shuffle(reqdatas)
             #发起一个post请求，去请求这个页面，从而获得一次点击量
             for data in reqdatas:
