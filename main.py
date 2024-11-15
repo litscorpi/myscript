@@ -29,7 +29,7 @@ def print_log(msg):
     print(msg, flush=True)
 
 
-#主要是调用B站的API来实现刷播放量
+
 headers = {
     'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -43,7 +43,7 @@ headers = {
 
 
 
-# 构建我们要刷这个视频的基本参数
+# 视频的基本参数
 def buildData(bvids):
     reqdatas = []
     for bvid in bvids:
