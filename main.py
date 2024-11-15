@@ -6,21 +6,23 @@ import os
 import re
 
 
-# BVID放这里 格式: ["视频1id","视频2id","视频3id"...], BV号获取 https://www.bilibili.com/video/{这里就是BVID}/
-
-
-
 bvids = []
 
-bvids_bilibili_un = "BV1UxmaYwECv,BV11sDUYmEpX,BV1hDDWY9Emh,BV1CpSBYLEZ3,BV19iSoYEEmp,BV1fC17YiETa,BV1zp1TYgEL5,BV1h514Y7En8,BV1YFyUYVEBm,BV1uS1FYzErs,BV1saypYxEcq,BV1BDyLYFEar,BV1H9yhYVEJo,BV1bHCUYNET2,BV1wryPYqE6J,BV1gzmMYKEiS,BV1NS2oYfENk,BV1g5mjYsEuR,BV1yc2rYjE7s,BV1yC2aYdEon,BV1iZ28YBEZf,BV1Tb2UY3EL3,BV1Qc2SYEEBK,BV1rE2VYwEai,BV1U12PYDErq,BV14c2pYeESF,BV17G1yYkE8g,BV1gZ1BYmEKM,BV1eo19YYEDp,BV1m34AejE4j,BV1uW4FerEYN,BV1cxxQeMEPB,BV1cxxQeMEHz,BV12x4uecEhu,BV1wxxhemEEr,BV1NcxCepEMY,BV18HxqeyEqo,BV1jixMerE79,BV1wCsdeEELS,BV1rrxjegEVh,BV1XhxVeJE1h,BV1sRsaeXEdr,BV1HasSeaE3A,BV12AtUeVEyJ,BV1Uv4SejEEC,BV1zM4fedE2R,BV1E6HheYEvC,BV1LNDUYaER9,BV1FgySYxEFf,BV11QyYYpET8,BV1a8mLYsEsQ,BV1EfmLYiEzF,BV1sh2vYaE3B,BV1Uu2bYpEzG,BV1bh2TYZEiu,BV1192PYLEVu,BV1eG2AYsE2X,BV1b22LYSEhk,BV1KD1XYUExj,BV1sH45euENg,BV19A45eHEgd,BV1DfxxeUEtM,BV1Xhx1ezEad,BV1msxqerEdF,BV1riSJY9E7a,BV1CfCQYiEk1,BV1eMmTYqEtm,BV18B21YqEyX,BV1nd1qYFEc1,BV14u1XY2ELE,BV16AxDePEvw,BV191xYerE94,BV1AXxieeE16,BV1m1xieuEY5,BV1ha1qY1EUs,BV1oV1dY6EBQ,BV1cJxLeiENZ"
+bvids_bilibili_all = "BV1UxmaYwECv,BV11sDUYmEpX,BV1hDDWY9Emh,BV1CpSBYLEZ3,BV19iSoYEEmp,BV1fC17YiETa,BV1zp1TYgEL5,BV1h514Y7En8,BV1YFyUYVEBm,BV1uS1FYzErs,BV1saypYxEcq,BV1BDyLYFEar,BV1H9yhYVEJo,BV1bHCUYNET2,BV1wryPYqE6J,BV1gzmMYKEiS,BV1NS2oYfENk,BV1g5mjYsEuR,BV1yc2rYjE7s,BV1yC2aYdEon,BV1iZ28YBEZf,BV1Tb2UY3EL3,BV1Qc2SYEEBK,BV1rE2VYwEai,BV1U12PYDErq,BV14c2pYeESF,BV17G1yYkE8g,BV1gZ1BYmEKM,BV1eo19YYEDp,BV1m34AejE4j,BV1uW4FerEYN,BV1cxxQeMEPB,BV1cxxQeMEHz,BV12x4uecEhu,BV1wxxhemEEr,BV1NcxCepEMY,BV18HxqeyEqo,BV1jixMerE79,BV1wCsdeEELS,BV1rrxjegEVh,BV1XhxVeJE1h,BV1sRsaeXEdr,BV1HasSeaE3A,BV12AtUeVEyJ,BV1Uv4SejEEC,BV1zM4fedE2R,BV1E6HheYEvC,BV1LNDUYaER9,BV1FgySYxEFf,BV11QyYYpET8,BV1a8mLYsEsQ,BV1EfmLYiEzF,BV1sh2vYaE3B,BV1Uu2bYpEzG,BV1bh2TYZEiu,BV1192PYLEVu,BV1eG2AYsE2X,BV1b22LYSEhk,BV1KD1XYUExj,BV1sH45euENg,BV19A45eHEgd,BV1DfxxeUEtM,BV1Xhx1ezEad,BV1msxqerEdF,BV1riSJY9E7a,BV1CfCQYiEk1,BV1eMmTYqEtm,BV18B21YqEyX,BV1nd1qYFEc1,BV14u1XY2ELE,BV16AxDePEvw,BV191xYerE94,BV1AXxieeE16,BV1m1xieuEY5,BV1ha1qY1EUs,BV1oV1dY6EBQ,BV1cJxLeiENZ"
+
+bvids_bilibili_pro ="BV1UxmaYwECv,BV11sDUYmEpX,BV1hDDWY9Emh,BV1CpSBYLEZ3,BV19iSoYEEmp,BV1fC17YiETa,BV1zp1TYgEL5,BV1h514Y7En8,BV1YFyUYVEBm,BV1uS1FYzErs,BV1saypYxEcq,BV1BDyLYFEar,BV1H9yhYVEJo,BV1bHCUYNET2,BV1wryPYqE6J,BV1gzmMYKEiS,BV1NS2oYfENk,BV1g5mjYsEuR,BV1yc2rYjE7s,BV1yC2aYdEon,BV1iZ28YBEZf,BV1Tb2UY3EL3,BV1Qc2SYEEBK,BV1rE2VYwEai,BV1U12PYDErq,BV14c2pYeESF,BV17G1yYkE8g,BV1gZ1BYmEKM,BV1eo19YYEDp,BV1m34AejE4j,BV1uW4FerEYN,BV1cxxQeMEPB,BV1cxxQeMEHz,BV12x4uecEhu,BV1LNDUYaER9,BV1FgySYxEFf,BV11QyYYpET8,BV1a8mLYsEsQ,BV1EfmLYiEzF,BV1sh2vYaE3B,BV1Uu2bYpEzG,BV1eG2AYsE2X,BV1riSJY9E7a,BV1CfCQYiEk1"
 
 # bvids_bilibili_un = os.getenv("bvids_bilibili_un")
 # bvids_bilibili_un = bvids_bilibili_un.replace('"','')
-bvids_bilibili_un = re.sub(r"[\s'\"]+", '', bvids_bilibili_un)
-if bvids_bilibili_un :
-    new_bvids = bvids_bilibili_un.split(",")
-    bvids.extend(new_bvids)
+# bvids_bilibili_un = re.sub(r"[\s'\"]+", '', bvids_bilibili_un)
+# if bvids_bilibili_un :
+#     new_bvids = bvids_bilibili_un.split(",")
+#     bvids.extend(new_bvids)
 
+def strtolist(str):
+    if str:
+        new_bvids = str.split(",")
+        return new_bvids
     
 def print_log(msg):
     # 直接print()在Docker中不会显示, 所以要家flush=True
@@ -37,38 +39,45 @@ headers = {
     'Connection': 'keep-alive'
 }
 
+
+
+
+
 # 构建我们要刷这个视频的基本参数
-reqdatas = []
-for bvid in bvids:
-    stime = str(int(time.time()))
-    resp = requests.get("https://api.bilibili.com/x/web-interface/view?bvid={}".format(bvid), headers=headers)
-    try:
-        rdata = resp.json()["data"]
-    except Exception:
-        print_log(f"{bvid}请求失败")
-        continue
-    data= {
-        'aid':rdata["aid"],
-        'cid':rdata["cid"],
-        "bvid": bvid,
-        'part':'1',
-        'mid':rdata["owner"]["mid"],
-        'lv':'6',
-        "stime" :stime,
-        'jsonp':'jsonp',
-        'type':'3',
-        'sub_type':'0',
-        'title': rdata["title"]
-    }
-    reqdatas.append(data)
+def buildData(bvids):
+    reqdatas = []
+    for bvid in bvids:
+        stime = str(int(time.time()))
+        resp = requests.get("https://api.bilibili.com/x/web-interface/view?bvid={}".format(bvid), headers=headers)
+        try:
+            rdata = resp.json()["data"]
+        except Exception:
+            print_log(f"{bvid}请求失败")
+            continue
+        data= {
+            'aid':rdata["aid"],
+            'cid':rdata["cid"],
+            "bvid": bvid,
+            'part':'1',
+            'mid':rdata["owner"]["mid"],
+            'lv':'6',
+            "stime" :stime,
+            'jsonp':'jsonp',
+            'type':'3',
+            'sub_type':'0',
+            'title': rdata["title"]
+        }
+        reqdatas.append(data)
+    return reqdatas
 
 # random.shuffle(reqdatas)
 
-def goPlay(url):
+def goPlay(url,str,n):
     count = 0
     #count < 30
-    while count < 25:
+    while count < n:
         try:
+            reqdatas = buidData(strtolist(str))
             random.shuffle(reqdatas)
             #发起一个post请求，去请求这个页面，从而获得一次点击量
             for data in reqdatas:
@@ -106,4 +115,7 @@ VIDEO_HEARTBEAT = "https://api.bilibili.com/x/click-interface/web/heartbeat"
 # print_log("准备起飞啦~~~{}".format(bvids))
 print_log("准备起飞啦~~~")
 
-goPlay(url)
+goPlay(url,bvids_bilibili_pro,20)
+delay = random.randint(120,180)
+time.sleep(delay)
+goPlay(url,bvids_bilibili_all,10)
